@@ -28,7 +28,7 @@ const getAllReplies = asyncHandler(async (req, res) => {
 // @access Private
 const createNewReply = asyncHandler(async (req, res) => {
     const { userId, commentId, content } = req.body
-
+   
     // Confirm data
     if (!userId || !commentId || !content) {
         return res.status(400).json({ message: 'All fields are required' })

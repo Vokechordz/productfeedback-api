@@ -2,19 +2,6 @@ const User = require('../models/User')
 const Note = require('../models/Feedback')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
-const multer = require('multer');
-
-// Set up Multer storage
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Specify the folder where uploaded files will be stored
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname); // Keep the original file name
-    }
-});
-
-const upload = multer({ storage: storage });
 
 // @desc Get all users
 // @route GET /users
@@ -34,12 +21,14 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @desc Create new user
 // @route POST /users
 // @access Private
-const createNewUser = asyncHandler(upload.single('profilepic'), async (req, res) => {
+const createNewUser = asyncHandler( async (req, res) => {
     const { name, username, password } = req.body
-    const profilepic = req.file.path; // Save the file path of the uploaded profile picture
+    const profilepic= req.file.filename
+    console.log(req.file)
+
 
     // Confirm data
-    if ( !name || !username || !profilepic || !password ) {
+    if ( !name || !username || !password || !profilepic ) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
