@@ -56,7 +56,7 @@ const createNewFeedback = asyncHandler(async (req, res) => {
 // @route PATCH /feedback
 // @access Private
 const updateFeedback = asyncHandler(async (req, res) => {
-    const { id, userId, title, details, category } = req.body
+    const { id, userId, title, details, category, status, likes } = req.body
 
     // Confirm data
     if (!id || !userId || !title || !details || !category) {
@@ -78,10 +78,12 @@ const updateFeedback = asyncHandler(async (req, res) => {
         return res.status(409).json({ message: 'Duplicate feedback title' })
     }
 
+
     feedback.userId = userId
     feedback.title = title
     feedback.details = details
     feedback.category = category
+
 
     const updatedFeedback = await feedback.save()
 
