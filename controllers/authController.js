@@ -27,7 +27,7 @@ const login = asyncHandler(async (req, res) => {
         {
             "UserInfo": {
                 "username": foundUser.username,
-                userId: foundUser._id
+                "userId": foundUser._id
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -48,8 +48,8 @@ const login = asyncHandler(async (req, res) => {
         maxAge: 5 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
     })
 
-    // Send accessToken containing username and roles 
-    res.json({  accessToken, userId: foundUser._id})
+    // Send accessToken containing username and user ID
+    res.json({ accessToken })
 })
 
 // @desc Refresh
