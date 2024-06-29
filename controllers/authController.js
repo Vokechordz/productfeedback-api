@@ -49,7 +49,7 @@ const login = asyncHandler(async (req, res) => {
     })
 
     // Send accessToken containing username and user ID
-    res.json({ accessToken })
+    res.json({ accessToken, userId:foundUser._id })
 })
 
 // @desc Refresh
